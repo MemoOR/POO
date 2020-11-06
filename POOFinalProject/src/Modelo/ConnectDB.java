@@ -10,7 +10,7 @@ public class ConnectDB {
 	//Por seguridad DBConfig no se subira al repositorio
 	private static Connection conn; //Objeto de tipo Connection 
 	private static final String driver = DBconfig.getDriver();
-	private static final String user = DBconfig.getUsername();
+	private static final String user = DBconfig.getUser();
 	private static final String password = DBconfig.getPassword();
 	
 	private static final String url = DBconfig.getUrl();
