@@ -130,8 +130,7 @@ public class VistaFrame extends JFrame{
 	
 	//Crea un label que contiene un gif
 	public void addGif() {
-		img = new ImageIcon("C:/Users/dethk/Documents/Programming"
-	    		+ "/POO/POOFinalProject/model.gif");
+		img = new ImageIcon("C:/Users/dethk/git/POO/POOFinalProject/model.gif");
 		
 		//resize gives less resolution
 	    img.setImage(img.getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT));
