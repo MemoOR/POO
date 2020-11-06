@@ -14,7 +14,7 @@ public class GetDBData {
 
 	//Obtiene de la base de datos el nombre de las entidades
 	//para insertarlos en el Combobox
-	public ArrayList<ModeloEntidad> listaEntidades(){
+	public ArrayList<ModeloEntidad> listaEntidade(){
 		
 		//Nombres de columnas
 		ArrayList<ModeloEntidad> Entidades = new ArrayList<>();
