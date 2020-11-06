@@ -16,7 +16,7 @@
 *.xlsx
 *.gif
 *.pdf
-DBConfig.java
+POOFinalProject/src/Modelo/DBConfig.java
 
 # Package Files #
 *.jar
