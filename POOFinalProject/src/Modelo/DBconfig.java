@@ -2,6 +2,7 @@ package Modelo;
 
 public class DBconfig {
 	
+	
 	private static final String username = "MEMOOR";
 	private static final String password = "DBApassMOR";
 	private static final String url = "jdbc:oracle:thin:@localhost:1521:ORCL";
