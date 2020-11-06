@@ -1,3 +1,6 @@
+# Recibe un archivo en formato csv y cambia los
+# parametros a lo que necesita la base de datos local
+
 import pandas as pd
 
 col_list = ["ID_REGISTRO", "SEXO", "ENTIDAD_RES", "FECHA_DEF",
