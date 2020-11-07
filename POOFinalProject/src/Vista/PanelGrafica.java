@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
@@ -18,25 +16,10 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 public class PanelGrafica extends JPanel{
 	private static final long serialVersionUID = 1L;
-	
-	double[] XM, YM;
-	public static String[] dataLabel = {"ESTADO", "SEXO", "DIANÓSTICO", "EDAD"};
-	JLabel[] Data = new JLabel[4];
 
 	public PanelGrafica() {	
-		
 		setLayout(new GridLayout());
 		setLayout(new BorderLayout());
-		
-		JPanel DisplayData = new JPanel();
-		DisplayData.setLayout(new BoxLayout(DisplayData, BoxLayout.Y_AXIS));
-		
-		for(int i = 0; i < dataLabel.length; i++) {
-			Data[i] = Labels.createLabel(dataLabel[i], 14);
-			DisplayData.add(Data[i]);
-		}
-		
-		add(DisplayData, BorderLayout.NORTH);
 		
 		CategoryDataset dataset = createDataset();
 
@@ -50,7 +33,7 @@ public class PanelGrafica extends JPanel{
 	private CategoryDataset createDataset() {
 
         var dataset = new DefaultCategoryDataset();
-        dataset.setValue(2365584, "Gold medals", "USA");
+        dataset.setValue(2365584, "Gold medals", "Total de casos");
 
         return dataset;
     }

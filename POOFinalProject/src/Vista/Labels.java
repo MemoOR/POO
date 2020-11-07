@@ -18,7 +18,7 @@ public class Labels {
 	
 	public static JLabel createLabel(String LabelTXT, int size) {
 		
-		JLabel Label = new JLabel(LabelTXT, SwingConstants.CENTER);
+		JLabel Label = new JLabel(LabelTXT);
 		Label.setSize(50, 20);
 		Label.setFont (new Font("Times New Roman", Font.BOLD, size));
 		return Label;

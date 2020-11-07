@@ -19,24 +19,29 @@ import javax.swing.ImageIcon;
 public class VistaFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 	
+	//Paneles y componentes para el panel de opciones
 	public JPanel panelO;
-	public JPanel panelG;
 	public JPanel[] paneles = new JPanel[3];
-	
 	public JComboBox<String> combo1;	
-	
 	public String[] sexLabel = {"Hombres", "Mujeres", "Total"};
 	public String[] sickLabel = {"Diabetes","EPOC", "Asma", "Hipertensión",
 								"Cardiovascular", "Obesidad", "Tabaquismo", "Total"};
 	public String[] deadLabel = {"Contagios", "Defunciones", "Total"};
 	public String[] ageLabel = {"Si", "No"};
-	
-	public static JRadioButton[] sexR, sickR, deadR, ageR;
+	public JRadioButton[] sexR, sickR, deadR, ageR;
 	public ButtonGroup SexG, sickG, deadG, ageG;
-	
 	public ImageIcon img;
 	public JLabel imgL;
 	
+	//Paneles y componentes para el panel de la gráfica
+	public JPanel panelG;
+	public String[] dataLabel = {"Población: TOTAL", "Sexo: Total",
+								"Diagnóstico: Total", "Estadística: Total",
+								"Filtro de edad: No"};
+	public JLabel[] Data = new JLabel[dataLabel.length];
+	public JPanel DisplayData;
+	
+	//Frame principal
 	public VistaFrame(){
 		super("Estadística COVID-19 en México");
 		//(width, height)
@@ -44,10 +49,32 @@ public class VistaFrame extends JFrame{
 		setLocation(150, 100);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    setResizable(false);
-
 	    getContentPane().setLayout(new GridLayout(1,2));
 	    
-	    panelO = new PanelOpciones();
+	    //Inserta los elementos del panel de opciones
+	    createOptionsPanel();
+	    getContentPane().add(panelO);
+	    
+	    //Panel de la grafica 
+	    panelG = new PanelGrafica();
+	    panelG.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+	    
+	    DisplayData = new JPanel();
+		DisplayData.setLayout(new GridLayout(3,2));
+		
+		for(int i = 0; i < dataLabel.length; i++) {
+			Data[i] = Labels.createLabel(dataLabel[i], 14);
+			DisplayData.add(Data[i]);
+		}
+		
+		panelG.add(DisplayData, BorderLayout.NORTH);
+	    
+	    getContentPane().add(panelG);
+	}
+	
+	//Crea los elementos que contenerá el panel de opciones
+	public void createOptionsPanel() {
+		panelO = new PanelOpciones();
 	    panelO.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
 	    
 	    for(int i = 0; i < paneles.length; i++) {
@@ -79,15 +106,7 @@ public class VistaFrame extends JFrame{
 	    panelO.add(imgL, BorderLayout.CENTER);
 	    
 	    addRButtons();
-
-	    //Panel de la grafica 
-	    panelG = new PanelGrafica();
-	    panelG.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-	    
-	    getContentPane().add(panelO);
-	    getContentPane().add(panelG);
-
-	 }
+	}
 	
 	//crea y añade los radio buttons y radio groups al panel 
 	//que les corresponde
@@ -98,7 +117,7 @@ public class VistaFrame extends JFrame{
 	    ageR = RadioButtons.createRButton(ageLabel.length, ageLabel);
 	    
 	    sexR[2].setSelected(true);
-	    sickR[0].setSelected(true);
+	    sickR[7].setSelected(true);
 	    deadR[2].setSelected(true);
 	    ageR[1].setSelected(true);
 	    
