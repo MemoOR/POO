@@ -16,6 +16,7 @@
 *.xlsx
 *.gif
 *.pdf
+*.sql
 
 # Package Files #
 *.jar
