@@ -13,6 +13,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 
@@ -41,6 +45,8 @@ public class VistaFrame extends JFrame{
 	public JLabel[] Data = new JLabel[dataLabel.length];
 	public JPanel DisplayData;
 	
+	CategoryDataset dataset;
+	
 	//Frame principal
 	public VistaFrame(){
 		super("Estadística COVID-19 en México");
@@ -56,7 +62,8 @@ public class VistaFrame extends JFrame{
 	    getContentPane().add(panelO);
 	    
 	    //Panel de la grafica 
-	    panelG = new PanelGrafica();
+	    dataset = createDataset();
+	    panelG = new PanelGrafica(dataset);
 	    panelG.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
 	    
 	    DisplayData = new JPanel();
@@ -68,9 +75,15 @@ public class VistaFrame extends JFrame{
 		}
 		
 		panelG.add(DisplayData, BorderLayout.NORTH);
-	    
+
 	    getContentPane().add(panelG);
 	}
+	
+	private CategoryDataset createDataset() {
+        var dataset = new DefaultCategoryDataset();
+        dataset.setValue(2365584, "Población total", "Total de casos");
+        return dataset;
+    }
 	
 	//Crea los elementos que contenerá el panel de opciones
 	public void createOptionsPanel() {

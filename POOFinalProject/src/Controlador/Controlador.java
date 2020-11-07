@@ -44,7 +44,7 @@ public class Controlador implements ActionListener{
 			this.vista.Data[0].setText("Población: "+ this.getVista().dataLabel[0]);
 			this.vista.Data[0].repaint();
 		}
-		
+		//Obtiene cada radio button seleccionado
 		sexRButtonListeners(e);
 		sickRButtonListeners(e);
 		deadRButtonListeners(e);

@@ -17,10 +17,12 @@ public class Labels {
 	}
 	
 	public static JLabel createLabel(String LabelTXT, int size) {
-		
 		JLabel Label = new JLabel(LabelTXT);
 		Label.setSize(50, 20);
-		Label.setFont (new Font("Times New Roman", Font.BOLD, size));
+		if(size == 16)
+			Label.setFont (new Font("Times New Roman", Font.BOLD, size));
+		else
+			Label.setFont (new Font("calibri", Font.PLAIN, size));
 		return Label;
 	}
 	
