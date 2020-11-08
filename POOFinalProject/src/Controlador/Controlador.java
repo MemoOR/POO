@@ -6,19 +6,33 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
+import org.jfree.data.category.DefaultCategoryDataset;
+
+import Ejecuta.Main;
 import Modelo.GetDBData;
 import Vista.*;
 
 public class Controlador implements ActionListener{
-	private GetDBData modelo = new GetDBData();
-	private VistaFrame vista = new VistaFrame();
-	private boolean ComboSet = false;
+	private GetDBData modelo = Main.modelo;
+	private VistaFrame vista = Main.vista;
+	
+	private int[] Options = {0, //Entidad
+			0, //sexo
+			0, //defuncion 
+			0, //diabetes
+			0, //epoc
+			0, //asma
+			0, //hipertensión
+			0, //cardiovascular
+			0, //obesidad
+			0, //tabaquismo
+			0, //clasificacion
+			0}; //Edad
 	
 	//Constructor
-	public Controlador(GetDBData modelo, VistaFrame vista) {
-		this.setModelo(modelo);
-		this.setVista(vista);
+	public Controlador() {
 		this.fillComboBox();
+		this.fillDataset(Options);
 		
 		this.vista.combo1.addActionListener(this);
 		this.vista.combo2.addActionListener(this);
@@ -41,6 +55,7 @@ public class Controlador implements ActionListener{
 
 	//Button Pressed
 	public void actionPerformed(ActionEvent e){
+		this.fillDataset(Options);
 		//obtiene seleccion de ComboBox de entidad
 		if(e.getSource() == this.vista.combo1){
 			this.getVista().dataLabel[0] = this.getVista().combo1.getSelectedItem().toString();
@@ -70,6 +85,17 @@ public class Controlador implements ActionListener{
 			this.fillInfoTable();
 			JOptionPane.showMessageDialog(this.vista, this.vista.scrollPane);
 		}
+	}
+	
+	public void fillDataset(int[] options) {
+		int x = this.modelo.listaDataset(options).get(0).getCount();
+		int y = this.modelo.listaDataset(options).get(1).getCount();
+		
+		this.vista.dataset.addValue( x , "dd" , "dd" );
+		this.vista.dataset.addValue( y , "cc" , "cc" );
+		
+		this.vista.panelG.repaint();
+		this.vista.panelG.updateUI();
 	}
 	
 	//Escucha las acciones de las opciones de sexo
@@ -204,11 +230,11 @@ public class Controlador implements ActionListener{
 			this.vista.data[row][1] = String.valueOf(modelo.listaClasificacion().get(row).getClasificacion());
 			this.vista.data[row][2] = String.valueOf(modelo.listaClasificacion().get(row).getDescripcion());
 		}
-		for(int row = 0; row < this.modelo.listaClasificacion().size(); row++) {
-			for(int col = 0; col < this.vista.cNames.length; col++) {
-				System.out.println(this.vista.data[row][col]);
-			}
-		}
+//		for(int row = 0; row < this.modelo.listaClasificacion().size(); row++) {
+//			for(int col = 0; col < this.vista.cNames.length; col++) {
+//				System.out.println(this.vista.data[row][col]);
+//			}
+//		}
 		this.vista.Tabla = Tables.createTable(this.vista.data, this.vista.cNames);
 		this.vista.scrollPane.setViewportView(this.vista.Tabla);
 	}
@@ -228,12 +254,4 @@ public class Controlador implements ActionListener{
 	public void setVista(VistaFrame vista) {
 		this.vista = vista;
 	}
-
-	public boolean isComboSet() {
-		return ComboSet;
-	}
-	public void setComboSet(boolean comboSet) {
-		ComboSet = comboSet;
-	}
-
 }

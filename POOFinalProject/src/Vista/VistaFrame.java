@@ -16,7 +16,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import javax.swing.ButtonGroup;
@@ -31,6 +30,7 @@ public class VistaFrame extends JFrame{
 	public JPanel[] paneles = new JPanel[6];
 	public JComboBox<String> combo1, combo2;	
 	public JButton infoButton;
+	//labels para radio buttons
 	public String[] sexLabel = {"Hombres", "Mujeres", "Total"};
 	public String[] sickLabel = {"Diabetes","EPOC", "Asma", "Hipertensión",
 								"Cardiovascular", "Obesidad", "Tabaquismo", "Total"};
@@ -38,8 +38,10 @@ public class VistaFrame extends JFrame{
 	public String[] ageLabel = {"Si", "No"};
 	public JRadioButton[] sexR, sickR, deadR, ageR;
 	public ButtonGroup SexG, sickG, deadG, ageG;
+	//iconos
 	public ImageIcon img, imgInfo;
 	public JLabel imgL;
+	//componentes para la tabla de informacion
 	public String data[][] = {{}};
 	public String cNames[] = {"ID", "Tipo", "Descripción"};
 	public JScrollPane scrollPane = new JScrollPane(); 
@@ -52,8 +54,8 @@ public class VistaFrame extends JFrame{
 								"Filtro de edad: No", "Clasificación: TOTAL"};
 	public JLabel[] Data = new JLabel[dataLabel.length];
 	public JPanel DisplayData;
-	
-	CategoryDataset dataset;
+	//dataset para la grafica
+	public DefaultCategoryDataset dataset;
 	
 	//Frame principal
 	public VistaFrame(){
@@ -72,7 +74,7 @@ public class VistaFrame extends JFrame{
 	    getContentPane().add(panelO);
 	    
 	    //Panel de la grafica 
-	    dataset = createDataset();
+	    dataset = new DefaultCategoryDataset();
 	    panelG = new PanelGrafica(dataset);
 	    panelG.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
 	    
@@ -88,12 +90,6 @@ public class VistaFrame extends JFrame{
 
 	    getContentPane().add(panelG);
 	}
-	
-	private CategoryDataset createDataset() {
-        var dataset = new DefaultCategoryDataset();
-        dataset.setValue(2365584, "Población total", "Total de casos");
-        return dataset;
-    }
 	
 	//Crea los elementos que contenerá el panel de opciones
 	public void createOptionsPanel() {
