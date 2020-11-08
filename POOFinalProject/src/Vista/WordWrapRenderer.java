@@ -4,16 +4,14 @@ import java.awt.Component;
 
 import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
 import javax.swing.table.TableCellRenderer;
-
 
 //Esta clase se encarga de ajustar el texto al tamaño de la celda en la tabla
 public class WordWrapRenderer extends JTextArea implements TableCellRenderer{
 
 	private static final long serialVersionUID = 1L;
 
-	WordWrapRenderer(){
+	public WordWrapRenderer(){
         setLineWrap(true);
         setWrapStyleWord(true);
     }
