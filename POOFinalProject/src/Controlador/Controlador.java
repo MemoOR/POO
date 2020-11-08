@@ -2,7 +2,10 @@ package Controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
 import Modelo.GetDBData;
@@ -18,7 +21,10 @@ public class Controlador implements ActionListener{
 		this.setModelo(modelo);
 		this.setVista(vista);
 		this.fillComboBox();
+		
 		this.vista.combo1.addActionListener(this);
+		this.vista.combo2.addActionListener(this);
+		this.vista.infoButton.addActionListener(this);
 		
 		for(JRadioButton rd : this.vista.sexR) {
 			rd.addActionListener(this);
@@ -37,18 +43,35 @@ public class Controlador implements ActionListener{
 
 	//Button Pressed
 	public void actionPerformed(ActionEvent e){
-		//obtiene seleccion de ComboBox
+		//obtiene seleccion de ComboBox de entidad
 		if(e.getSource() == this.vista.combo1){
 			this.getVista().dataLabel[0] = this.getVista().combo1.getSelectedItem().toString();
 			
-			this.vista.Data[0].setText("Población: "+ this.getVista().dataLabel[0]);
+			this.vista.Data[0].setText("Población: " + this.getVista().dataLabel[0]);
 			this.vista.Data[0].repaint();
 		}
+
 		//Obtiene cada radio button seleccionado
 		sexRButtonListeners(e);
 		sickRButtonListeners(e);
 		deadRButtonListeners(e);
 		ageRButtonListeners(e);
+		
+		//obtiene seleccion de ComboBox de clasificacion
+		if(e.getSource() == this.vista.combo2) {
+			this.getVista().dataLabel[5] = this.getVista().combo2.getSelectedItem().toString();
+			if(this.getVista().dataLabel[5].equals("TOTAL"))
+				this.vista.Data[5].setText("Clasificación: " + this.getVista().dataLabel[5]);
+			else
+				this.vista.Data[5].setText("Clasificación: " + this.getVista().dataLabel[5].charAt(0));
+			this.vista.Data[5].repaint();
+		}
+		
+		//obtiene seleccion de ComboBox de clasificacion
+		if(e.getSource() == this.vista.infoButton) {
+			this.fillInfoTable();
+			JOptionPane.showMessageDialog(this.vista, this.vista.scrollPane);
+		}
 	}
 	
 	//Escucha las acciones de las opciones de sexo
@@ -156,7 +179,7 @@ public class Controlador implements ActionListener{
 		}
 	}
 	
-	//Inserta datos de entidades en comboBox
+	//Inserta datos en ambos comboBox
 	public void fillComboBox() {
 		for(int i=0; i < modelo.listaEntidades().size(); i++){
 			if(i==0) {
@@ -165,6 +188,31 @@ public class Controlador implements ActionListener{
 			this.vista.combo1.addItem(modelo.listaEntidades().
 					get(i).getEntidad().toString());
 		}
+		
+		for(int i=0; i < modelo.listaClasificacion().size(); i++){
+			if(i==0) {
+				this.vista.combo2.addItem("TOTAL");
+			}
+			this.vista.combo2.addItem((i+1) + ".- " + modelo.listaClasificacion().get(i).getClasificacion().toString());
+		}
+	}
+	
+	//llena datos de clasificacion para la tabla de informacion
+	public void fillInfoTable() {
+		this.vista.data = new String[this.modelo.listaClasificacion().size()][modelo.listaClasificacion().size()];
+		
+		for(int row = 0; row < this.modelo.listaClasificacion().size(); row++) {
+			this.vista.data[row][0] = String.valueOf(modelo.listaClasificacion().get(row).getId());
+			this.vista.data[row][1] = String.valueOf(modelo.listaClasificacion().get(row).getClasificacion());
+			this.vista.data[row][2] = String.valueOf(modelo.listaClasificacion().get(row).getDescripcion());
+		}
+		for(int row = 0; row < this.modelo.listaClasificacion().size(); row++) {
+			for(int col = 0; col < this.vista.cNames.length; col++) {
+				System.out.println(this.vista.data[row][col]);
+			}
+		}
+		this.vista.Tabla = Tables.createTable(this.vista.data, this.vista.cNames);
+		this.vista.scrollPane.setViewportView(this.vista.Tabla);
 	}
 
 	public GetDBData getModelo() {

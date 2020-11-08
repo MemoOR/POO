@@ -10,7 +10,7 @@ public class Labels {
 	
 	public static JLabel createLabel(String LabelTXT) {
 			
-		JLabel Label = new JLabel(LabelTXT, SwingConstants.CENTER);
+		JLabel Label = new JLabel(LabelTXT);
 		Label.setSize(50, 20);
 		Label.setFont (new Font("Times New Roman", Font.BOLD, 24));
 		return Label;
@@ -21,8 +21,10 @@ public class Labels {
 		Label.setSize(50, 20);
 		if(size == 16)
 			Label.setFont (new Font("Times New Roman", Font.BOLD, size));
-		else
+		else if(size == 14)
 			Label.setFont (new Font("calibri", Font.PLAIN, size));
+		else if(size == 12)
+			Label.setFont (new Font("Times New Roman", Font.BOLD, size));
 		return Label;
 	}
 	
