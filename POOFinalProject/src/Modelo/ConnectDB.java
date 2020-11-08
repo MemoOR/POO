@@ -17,18 +17,20 @@ public class ConnectDB {
 	
 	public ConnectDB() {
 		conn = null;
-		try{
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url,user,password);
-		}catch (ClassNotFoundException | SQLException e){
-			
-			System.out.println("NO Se conectó");
-		}
 	}
  
 	// Recupera el objeto de tipo Connection
 	public static Connection getConnection(){
 		return conn;
+	}
+	
+	public void setConnection() {
+		try{
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url,user,password);
+		}catch (ClassNotFoundException | SQLException e){
+			System.out.println("No Se conectó");
+		}
 	}
 
 	// Método para cerrar la conexión. 
