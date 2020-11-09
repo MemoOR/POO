@@ -2,6 +2,7 @@ package Modelo;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -94,6 +95,9 @@ public class GetDBData {
 		ArrayList<ModeloDataset> data = new ArrayList<>();
 		ModeloDataset row = new ModeloDataset();
 		
+		int[] ageResult = new int[10];
+		String[] ageColName = new String[10];
+		
 		try {
 			// recupera la conexion
 			Connection conn = ConnectDB.getConnection();
@@ -101,11 +105,26 @@ public class GetDBData {
 			try {
 			    ResultSet rs = stmt.executeQuery(query);
 			    try {
-			    	while(rs.next()) {
-			    		row = new ModeloDataset();
-			    		row.setCount(rs.getInt(1));
-			    		data.add(row);
+			    	if(options[11] == 0) {
+			    		while(rs.next()) {
+				    		row = new ModeloDataset();
+				    		row.setCount0(rs.getInt(1));
+				    		data.add(row);
+				    	}
+			    	}else {
+			    		ResultSetMetaData rsmd = rs.getMetaData();
+			    		while(rs.next()) {
+				    		row = new ModeloDataset();
+				    		for(int i = 1; i <= ageResult.length; i++) {
+				    			ageResult[i-1] = rs.getInt(i);
+				    			ageColName[i-1] = rsmd.getColumnName(i);
+				    		}
+				    		row.setCount(ageResult);
+				    		row.setAgeColNames(ageColName);
+				    		data.add(row);
+				    	}
 			    	}
+			    	
 			    } finally {
 			        try { rs.close(); } catch (Exception ignore) { }
 			    }
@@ -128,20 +147,47 @@ public class GetDBData {
 		getQueryEntSexEstClas(options, inQuery);
 		getQuerySick(options, inQuery);
 
-		query = "SELECT " 
-			    + "COUNT(ID_CASO) FROM DATOS_COVID WHERE " 
-			    + "ENTIDAD_RES IN(" + inQuery[0] + ") AND " 
-			    + "SEXO IN(" + inQuery[1] + ") AND " 
-			    + "DEFUNCION IN(" + inQuery[2] + ") AND " 
-			    + "DIABETES IN(" + inQuery[3] + ") AND " 
-			    + "EPOC IN(" + inQuery[4] + ") AND " 
-			    + "ASMA IN(" + inQuery[5] + ") AND " 
-			    + "HIPERTENSION IN(" + inQuery[6] + ") AND " 
-			    + "CARDIOVASCULAR IN(" + inQuery[7] + ") AND " 
-			    + "OBESIDAD IN(" + inQuery[8] + ") AND "
-			    + "TABAQUISMO IN(" + inQuery[9] + ") AND "
-			    + "CLASIFICACION IN(" + inQuery[10] + ") "
-			    + "GROUP BY DEFUNCION";
+		if(options[11] == 0) {
+			query = "SELECT " 
+				    + "COUNT(ID_CASO) FROM DATOS_COVID WHERE " 
+				    + "ENTIDAD_RES IN(" + inQuery[0] + ") AND " 
+				    + "SEXO IN(" + inQuery[1] + ") AND " 
+				    + "DEFUNCION IN(" + inQuery[2] + ") AND " 
+				    + "DIABETES IN(" + inQuery[3] + ") AND " 
+				    + "EPOC IN(" + inQuery[4] + ") AND " 
+				    + "ASMA IN(" + inQuery[5] + ") AND " 
+				    + "HIPERTENSION IN(" + inQuery[6] + ") AND " 
+				    + "CARDIOVASCULAR IN(" + inQuery[7] + ") AND " 
+				    + "OBESIDAD IN(" + inQuery[8] + ") AND "
+				    + "TABAQUISMO IN(" + inQuery[9] + ") AND "
+				    + "CLASIFICACION IN(" + inQuery[10] + ") "
+				    + "GROUP BY DEFUNCION";
+		}else {
+			query = "SELECT "
+				    + "SUM(CASE WHEN EDAD BETWEEN 0 AND 10 THEN 1 ELSE 0 END) AS \"0-10\", "
+				    + "SUM(CASE WHEN EDAD BETWEEN 11 AND 20 THEN 1 ELSE 0 END) AS \"11-20\", "
+				    + "SUM(CASE WHEN EDAD BETWEEN 21 AND 30 THEN 1 ELSE 0 END) AS \"21-30\", "
+				    + "SUM(CASE WHEN EDAD BETWEEN 31 AND 40 THEN 1 ELSE 0 END) AS \"31-40\", "
+				    + "SUM(CASE WHEN EDAD BETWEEN 41 AND 50 THEN 1 ELSE 0 END) AS \"41-50\", "
+				    + "SUM(CASE WHEN EDAD BETWEEN 51 AND 60 THEN 1 ELSE 0 END) AS \"51-60\", "
+				    + "SUM(CASE WHEN EDAD BETWEEN 61 AND 70 THEN 1 ELSE 0 END) AS \"61-70\", "
+				    + "SUM(CASE WHEN EDAD BETWEEN 71 AND 80 THEN 1 ELSE 0 END) AS \"71-80\", "
+				    + "SUM(CASE WHEN EDAD BETWEEN 81 AND 90 THEN 1 ELSE 0 END) AS \"81-90\", "
+				    + "SUM(CASE WHEN EDAD BETWEEN 91 AND 100 THEN 1 ELSE 0 END) AS \"91-100\" "
+				    + "FROM DATOS_COVID WHERE "
+					+ "ENTIDAD_RES IN(" + inQuery[0] + ") AND " 
+				    + "SEXO IN(" + inQuery[1] + ") AND " 
+				    + "DEFUNCION IN(" + inQuery[2] + ") AND " 
+				    + "DIABETES IN(" + inQuery[3] + ") AND " 
+				    + "EPOC IN(" + inQuery[4] + ") AND " 
+				    + "ASMA IN(" + inQuery[5] + ") AND " 
+				    + "HIPERTENSION IN(" + inQuery[6] + ") AND " 
+				    + "CARDIOVASCULAR IN(" + inQuery[7] + ") AND " 
+				    + "OBESIDAD IN(" + inQuery[8] + ") AND "
+				    + "TABAQUISMO IN(" + inQuery[9] + ") AND "
+				    + "CLASIFICACION IN(" + inQuery[10] + ") "
+				    + "GROUP BY DEFUNCION";
+		}
 		
 		return query;
 	}

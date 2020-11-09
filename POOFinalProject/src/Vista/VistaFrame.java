@@ -65,7 +65,7 @@ public class VistaFrame extends JFrame{
 		setSize(1200, 600);
 		setLocation(150, 100);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    setResizable(false);
+	    setResizable(true);
 	    getContentPane().setLayout(new GridLayout(1,2));
 	    addIcon();
 	    

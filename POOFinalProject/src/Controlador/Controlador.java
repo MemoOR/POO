@@ -16,6 +16,7 @@ public class Controlador implements ActionListener{
 	private GetDBData modelo = Main.modelo;
 	private VistaFrame vista = Main.vista;
 	
+	private String Xaxis = "Total";
 	private int[] Options = {0, //Entidad
 			0, //sexo
 			0, //defuncion 
@@ -95,19 +96,46 @@ public class Controlador implements ActionListener{
 	public void fillDataset(int[] options) {
 		this.vista.dataset.clear();
 		
-		int row1 = 0;
-		int row2 = 0;
+		int[] row1 = new int[12];
+		int[] row2 = new int[12];
+		String[] ageColNames = new String[12];
 		
-		if(this.modelo.listaDataset(options).isEmpty() == false) {
-			row1 = this.modelo.listaDataset(options).get(0).getCount();
-			if(options[2] != 1 && options[2] != 2 && options[10] != 2) {
-				row2 = this.modelo.listaDataset(options).get(1).getCount();
+		if(options[11] == 0) {
+			if(this.modelo.listaDataset(options).isEmpty() == false) {
+				row1[0] = this.modelo.listaDataset(options).get(0).getCount0();
+				if(options[2] != 1 && options[2] != 2 && options[10] != 2) {
+					row2[0] = this.modelo.listaDataset(options).get(1).getCount0();
+				}
+				if(options[2] == 3) {	
+					this.vista.dataset.addValue( row1[0] , "Defunciones" , this.Xaxis );
+					this.vista.dataset.addValue( row2[0] , "Contagios" , this.Xaxis );
+				}else {
+					this.vista.dataset.addValue( (row1[0] + row2[0]) , "Total" , this.Xaxis );
+				}
 			}
-			if(options[2] == 3) {	
-				this.vista.dataset.addValue( row1 , "Defunciones" , "Población" );
-				this.vista.dataset.addValue( row2 , "Contagios" , "Población" );
-			}else {
-				this.vista.dataset.addValue( (row1 + row2) , "Total" , "Población" );
+		}else {
+			if(this.modelo.listaDataset(options).isEmpty() == false) {
+				row1 = this.modelo.listaDataset(options).get(0).getCount();
+				ageColNames = this.modelo.listaDataset(options).get(0).getAgeColNames();
+				
+				for(String i:ageColNames) {
+					System.out.println(i);
+				}
+				if(options[2] != 1 && options[2] != 2 && options[10] != 2) {
+					row2 = this.modelo.listaDataset(options).get(1).getCount();
+				}
+				
+				if(options[2] == 3) {	
+					for(int i = 0; i < row1.length; i++) {
+						this.vista.dataset.addValue( row1[i] , "Defunciones" , ageColNames[i] );
+						this.vista.dataset.addValue( row2[i] , "Contagios" , ageColNames[i] );
+					}
+					
+				}else {
+					for(int i = 0; i < row1.length; i++) {
+						this.vista.dataset.addValue( (row1[i] + row2[i]) , this.Xaxis , ageColNames[i] );
+					}
+				}
 			}
 		}
 
@@ -154,6 +182,7 @@ public class Controlador implements ActionListener{
 						this.Options[i] = 2;
 				}
 				this.Options[3] = 1;
+				this.Xaxis = this.getVista().sickR[0].getText();
 			}
 			if(e.getSource() == this.vista.sickR[1]){
 	//			System.out.println("EPOC");
@@ -162,6 +191,7 @@ public class Controlador implements ActionListener{
 					this.Options[i] = 2;
 				}
 				this.Options[4] = 1;
+				this.Xaxis = this.getVista().sickR[1].getText();
 			}
 			if(e.getSource() == this.vista.sickR[2]){
 	//			System.out.println("ASMA");
@@ -170,6 +200,7 @@ public class Controlador implements ActionListener{
 					this.Options[i] = 2;
 				}
 				this.Options[5] = 1;
+				this.Xaxis = this.getVista().sickR[2].getText();
 			}
 			if(e.getSource() == this.vista.sickR[3]){
 	//			System.out.println("Hipertensión");
@@ -178,6 +209,7 @@ public class Controlador implements ActionListener{
 					this.Options[i] = 2;
 				}
 				this.Options[6] = 1;
+				this.Xaxis = this.getVista().sickR[3].getText();
 			}
 			if(e.getSource() == this.vista.sickR[4]){
 	//			System.out.println("Cardio");
@@ -186,6 +218,7 @@ public class Controlador implements ActionListener{
 					this.Options[i] = 2;
 				}
 				this.Options[7] = 1;
+				this.Xaxis = this.getVista().sickR[4].getText();
 			}
 			if(e.getSource() == this.vista.sickR[5]){
 	//			System.out.println("Obesidad");
@@ -194,6 +227,7 @@ public class Controlador implements ActionListener{
 					this.Options[i] = 2;
 				}
 				this.Options[8] = 1;
+				this.Xaxis = this.getVista().sickR[5].getText();
 			}
 			if(e.getSource() == this.vista.sickR[6]){
 	//			System.out.println("Tabaquismo");
@@ -202,6 +236,7 @@ public class Controlador implements ActionListener{
 					this.Options[i] = 2;
 				}
 				this.Options[9] = 1;
+				this.Xaxis = this.getVista().sickR[6].getText();
 			}
 			if(e.getSource() == this.vista.sickR[7]){
 	//			System.out.println("Total");
@@ -209,6 +244,7 @@ public class Controlador implements ActionListener{
 				for (int i = 3; i < 10; i++) {
 					this.Options[i] = 0;
 				}
+				this.Xaxis = this.getVista().sickR[7].getText();
 			}
 			this.vista.Data[2].setText("Diagnóstico: "+ this.getVista().dataLabel[2]);
 			this.vista.Data[2].repaint();
