@@ -1,3 +1,11 @@
+/* @file Tables.java
+*  @brief Crea una tabla para mostrar la informacion sobre 
+*  la clasificación de pacientes, obtenida de la base de datos 
+*
+*  @author Guillermo Ortega Romo
+*  @date 09/11/2020
+*/
+
 package Vista;
 
 import javax.swing.JTable;

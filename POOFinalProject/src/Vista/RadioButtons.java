@@ -1,3 +1,11 @@
+/* @file RadioButtons.java
+*  @brief Se encarga de crear radio buttons para insertarlos 
+*  en el frame principal
+*
+*  @author Guillermo Ortega Romo
+*  @date 09/11/2020
+*/
+
 package Vista;
 
 import java.awt.Font;

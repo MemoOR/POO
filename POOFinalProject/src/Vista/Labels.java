@@ -1,3 +1,10 @@
+/* @file Labels.java
+*  @brief Objeto para crear labelse insertarlos en el frame
+*
+*  @author Guillermo Ortega Romo
+*  @date 09/11/2020
+*/
+
 package Vista;
 
 import java.awt.Font;

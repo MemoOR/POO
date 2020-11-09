@@ -1,3 +1,11 @@
+/* @file GetDBData.java
+*  @brief Se encarga de crear la conección con la base de datos
+*  y obtener todods los datos que se necesiten de ésta
+*
+*  @author Guillermo Ortega Romo
+*  @date 09/11/2020
+*/
+
 package Modelo;
 
 import java.sql.Connection;
@@ -5,9 +13,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.ArrayList;
-
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.category.DefaultCategoryDataset;
 
 public class GetDBData {
 	ConnectDB newConnection;

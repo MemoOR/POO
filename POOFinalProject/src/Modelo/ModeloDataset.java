@@ -1,3 +1,11 @@
+/* @file ModeloDataset.java
+*  @brief Modelo de datos para almacenar los datos obtenidos de 
+*  la base de datos e insertarlos en la grafica
+*
+*  @author Guillermo Ortega Romo
+*  @date 09/11/2020
+*/
+
 package Modelo;
 
 public class ModeloDataset {

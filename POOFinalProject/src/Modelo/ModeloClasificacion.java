@@ -1,3 +1,11 @@
+/* @file ModeloClasificacion.java
+*  @brief Modelo de datos para obtener la 
+*  clasificación de pacientes en la base de datos
+*
+*  @author Guillermo Ortega Romo
+*  @date 09/11/2020
+*/
+
 package Modelo;
 
 public class ModeloClasificacion {

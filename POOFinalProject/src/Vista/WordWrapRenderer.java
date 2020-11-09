@@ -1,3 +1,12 @@
+/* @file WordWrapRenderer.java
+*  @brief Recibe una celda de una tabla y se encarga de ajustar el tamaño
+*  de la celda para ajustar correctamente el texto.
+*
+*  @author Unknown
+*  @href https://stackoverflow.com/questions/37768335/how-to-word-wrap-inside-a-jtable-row/37768834
+*  @date 09/11/2020
+*/
+
 package Vista;
 
 import java.awt.Component;

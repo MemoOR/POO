@@ -1,3 +1,11 @@
+/* @file ConnectDB.java
+*  @brief Se encarga de crear la conección con la 
+*  base de datos
+*
+*  @author Guillermo Ortega Romo
+*  @date 09/11/2020
+*/
+
 package Modelo;
 
 import java.sql.Connection;

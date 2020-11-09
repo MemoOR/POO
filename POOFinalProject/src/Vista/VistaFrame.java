@@ -1,3 +1,12 @@
+/* @file VistaFrame.java
+*  @brief Archivo principal para el manejo de los componentes visuales.
+*  Aqui se agregan todos los paneles y componentes para que el usuario
+*  interactue con ellos.
+*
+*  @author Guillermo Ortega Romo
+*  @date 09/11/2020
+*/
+
 package Vista;
 
 import java.awt.BorderLayout;

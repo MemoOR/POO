@@ -1,3 +1,11 @@
+/* @file Main.java
+*  @brief Se encarga de inicializar el controlador, el modelo y 
+*  la vista del programa
+*
+*  @author Guillermo Ortega Romo
+*  @date 09/11/2020
+*/
+
 package Ejecuta;
 
 import Controlador.Controlador;

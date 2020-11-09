@@ -1,3 +1,11 @@
+/* @file PanelGrafica.java
+*  @brief Contiene los componentes que muestran los datos 
+*  con los que se llenará la gráfica y la gráfica
+*
+*  @author Guillermo Ortega Romo
+*  @date 09/11/2020
+*/
+
 package Vista;
 
 import java.awt.BorderLayout;

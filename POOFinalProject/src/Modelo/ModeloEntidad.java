@@ -1,3 +1,11 @@
+/* @file ModeloEntidad.java
+*  @brief Modelo de datos para obtener de la base de 
+*  datos los nombres de las entidades 
+*
+*  @author Guillermo Ortega Romo
+*  @date 09/11/2020
+*/
+
 package Modelo;
 
 public class ModeloEntidad {
