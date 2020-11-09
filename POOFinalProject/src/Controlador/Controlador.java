@@ -1,3 +1,11 @@
+/* @file Controlador.java
+*  @brief Se encarga de comunicar la parte visual con los datos
+*  			que se obtienen de la base de datos
+*
+*  @author Guillermo Ortega Romo
+*  @date 09/11/2020
+*/
+
 package Controlador;
 
 import java.awt.event.ActionEvent;
@@ -7,14 +15,15 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
-import org.jfree.data.category.DefaultCategoryDataset;
-
 import Ejecuta.Main;
+
 import Modelo.GetDBData;
 import Modelo.ModeloClasificacion;
 import Modelo.ModeloDataset;
 import Modelo.ModeloEntidad;
-import Vista.*;
+
+import Vista.Tables;
+import Vista.VistaFrame;
 
 public class Controlador implements ActionListener{
 	private GetDBData modelo = Main.modelo;
@@ -109,7 +118,7 @@ public class Controlador implements ActionListener{
 		if(options[11] == 0) {
 			if(data.isEmpty() == false) {
 				row1[0] = data.get(0).getCount0();
-				if(options[2] != 1 && options[2] != 2 && options[10] != 2) {
+				if(options[2] != 1 && options[2] != 2 && data.size() > 1) {
 					row2[0] = data.get(1).getCount0();
 				}
 				if(options[2] == 3) {	
@@ -121,14 +130,10 @@ public class Controlador implements ActionListener{
 			}
 		}else {
 			if(data.isEmpty() == false) {
-				for(ModeloDataset datas : data) {
-					int[] x  = datas.getCount();
-					System.out.println(x[0]);
-				}
 				row1 = data.get(0).getCount();
 				ageColNames = this.modelo.listaDataset(options).get(0).getAgeColNames();
 				
-				if(options[2] != 1 && options[2] != 2 && options[10] != 2) {
+				if(options[2] != 1 && options[2] != 2 && data.size() > 1) {
 					row2 = data.get(1).getCount();
 				}
 				
