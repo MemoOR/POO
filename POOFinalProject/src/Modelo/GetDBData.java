@@ -95,7 +95,6 @@ public class GetDBData {
 		ArrayList<ModeloDataset> data = new ArrayList<>();
 		ModeloDataset row = new ModeloDataset();
 		
-		int[] ageResult = new int[10];
 		String[] ageColName = new String[10];
 		
 		try {
@@ -114,11 +113,14 @@ public class GetDBData {
 			    	}else {
 			    		ResultSetMetaData rsmd = rs.getMetaData();
 			    		while(rs.next()) {
+			    			int[] ageResult = new int[10];
 				    		row = new ModeloDataset();
+				    		
 				    		for(int i = 1; i <= ageResult.length; i++) {
 				    			ageResult[i-1] = rs.getInt(i);
 				    			ageColName[i-1] = rsmd.getColumnName(i);
 				    		}
+				    		
 				    		row.setCount(ageResult);
 				    		row.setAgeColNames(ageColName);
 				    		data.add(row);

@@ -2,6 +2,7 @@ package Controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
@@ -10,6 +11,9 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 import Ejecuta.Main;
 import Modelo.GetDBData;
+import Modelo.ModeloClasificacion;
+import Modelo.ModeloDataset;
+import Modelo.ModeloEntidad;
 import Vista.*;
 
 public class Controlador implements ActionListener{
@@ -96,15 +100,17 @@ public class Controlador implements ActionListener{
 	public void fillDataset(int[] options) {
 		this.vista.dataset.clear();
 		
-		int[] row1 = new int[12];
-		int[] row2 = new int[12];
-		String[] ageColNames = new String[12];
+		ArrayList<ModeloDataset> data = this.modelo.listaDataset(options);
+		
+		int[] row1 = new int[10];
+		int[] row2 = new int[10];
+		String[] ageColNames = new String[10];
 		
 		if(options[11] == 0) {
-			if(this.modelo.listaDataset(options).isEmpty() == false) {
-				row1[0] = this.modelo.listaDataset(options).get(0).getCount0();
+			if(data.isEmpty() == false) {
+				row1[0] = data.get(0).getCount0();
 				if(options[2] != 1 && options[2] != 2 && options[10] != 2) {
-					row2[0] = this.modelo.listaDataset(options).get(1).getCount0();
+					row2[0] = data.get(1).getCount0();
 				}
 				if(options[2] == 3) {	
 					this.vista.dataset.addValue( row1[0] , "Defunciones" , this.Xaxis );
@@ -114,15 +120,16 @@ public class Controlador implements ActionListener{
 				}
 			}
 		}else {
-			if(this.modelo.listaDataset(options).isEmpty() == false) {
-				row1 = this.modelo.listaDataset(options).get(0).getCount();
+			if(data.isEmpty() == false) {
+				for(ModeloDataset datas : data) {
+					int[] x  = datas.getCount();
+					System.out.println(x[0]);
+				}
+				row1 = data.get(0).getCount();
 				ageColNames = this.modelo.listaDataset(options).get(0).getAgeColNames();
 				
-				for(String i:ageColNames) {
-					System.out.println(i);
-				}
 				if(options[2] != 1 && options[2] != 2 && options[10] != 2) {
-					row2 = this.modelo.listaDataset(options).get(1).getCount();
+					row2 = data.get(1).getCount();
 				}
 				
 				if(options[2] == 3) {	
@@ -302,15 +309,18 @@ public class Controlador implements ActionListener{
 	
 	//Inserta datos en ambos comboBox
 	public void fillComboBox() {
-		for(int i=0; i < modelo.listaEntidades().size(); i++){
+		ArrayList<ModeloEntidad> entidades = this.modelo.listaEntidades();
+		ArrayList<ModeloClasificacion> clasificacion = this.modelo.listaClasificacion();
+		
+		for(int i=0; i < entidades.size(); i++){
 			if(i==0) {
 				this.vista.combo1.addItem("TOTAL");
 			}
-			this.vista.combo1.addItem(modelo.listaEntidades().
+			this.vista.combo1.addItem(entidades.
 					get(i).getEntidad().toString());
 		}
 		
-		for(int i=0; i < modelo.listaClasificacion().size(); i++){
+		for(int i=0; i < clasificacion.size(); i++){
 			if(i==0) {
 				this.vista.combo2.addItem("TOTAL");
 			}
@@ -320,12 +330,14 @@ public class Controlador implements ActionListener{
 	
 	//llena datos de clasificacion para la tabla de informacion
 	public void fillInfoTable() {
-		this.vista.data = new String[this.modelo.listaClasificacion().size()][modelo.listaClasificacion().size()];
+		ArrayList<ModeloClasificacion> clasificacion = this.modelo.listaClasificacion();
+		this.vista.data = new String[clasificacion.size()][clasificacion.size()];
+		
 		
 		for(int row = 0; row < this.modelo.listaClasificacion().size(); row++) {
-			this.vista.data[row][0] = String.valueOf(modelo.listaClasificacion().get(row).getId());
-			this.vista.data[row][1] = String.valueOf(modelo.listaClasificacion().get(row).getClasificacion());
-			this.vista.data[row][2] = String.valueOf(modelo.listaClasificacion().get(row).getDescripcion());
+			this.vista.data[row][0] = String.valueOf(clasificacion.get(row).getId());
+			this.vista.data[row][1] = String.valueOf(clasificacion.get(row).getClasificacion());
+			this.vista.data[row][2] = String.valueOf(clasificacion.get(row).getDescripcion());
 		}
 //		for(int row = 0; row < this.modelo.listaClasificacion().size(); row++) {
 //			for(int col = 0; col < this.vista.cNames.length; col++) {

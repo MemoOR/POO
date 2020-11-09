@@ -62,10 +62,10 @@ public class VistaFrame extends JFrame{
 		//Configuracion del frame
 		super("Estadística COVID-19 en México");
 		//(width, height)
-		setSize(1200, 600);
-		setLocation(150, 100);
+		setSize(1300, 600);
+		setLocation(100, 80);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    setResizable(true);
+	    setResizable(false);
 	    getContentPane().setLayout(new GridLayout(1,2));
 	    addIcon();
 	    
