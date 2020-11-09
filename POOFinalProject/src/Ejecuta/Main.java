@@ -10,9 +10,6 @@ public class Main {
 	public static Controlador control;
 	
 	public static void main(String[] args) {
-//		vista = new VistaFrame();
-//	    modelo  = new GetDBData();
-	    
 	    @SuppressWarnings("unused")
 		Controlador cp = new Controlador();
 		vista.setVisible(true);

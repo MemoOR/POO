@@ -55,15 +55,15 @@ public class Controlador implements ActionListener{
 
 	//Button Pressed
 	public void actionPerformed(ActionEvent e){
-		this.fillDataset(Options);
 		//obtiene seleccion de ComboBox de entidad
 		if(e.getSource() == this.vista.combo1){
 			this.getVista().dataLabel[0] = this.getVista().combo1.getSelectedItem().toString();
+			this.Options[0] = this.vista.combo1.getSelectedIndex();
 			
 			this.vista.Data[0].setText("Población: " + this.getVista().dataLabel[0]);
 			this.vista.Data[0].repaint();
 		}
-
+		
 		//Obtiene cada radio button seleccionado
 		sexRButtonListeners(e);
 		sickRButtonListeners(e);
@@ -77,6 +77,7 @@ public class Controlador implements ActionListener{
 				this.vista.Data[5].setText("Clasificación: " + this.getVista().dataLabel[5]);
 			else
 				this.vista.Data[5].setText("Clasificación: " + this.getVista().dataLabel[5].charAt(0));
+			this.Options[10] = this.vista.combo2.getSelectedIndex();
 			this.vista.Data[5].repaint();
 		}
 		
@@ -85,15 +86,31 @@ public class Controlador implements ActionListener{
 			this.fillInfoTable();
 			JOptionPane.showMessageDialog(this.vista, this.vista.scrollPane);
 		}
+		
+		//crea el dataset para la grafica recibiendo las opciones seleccionadas
+		//por el usuario
+		this.fillDataset(Options);
 	}
-	
+
 	public void fillDataset(int[] options) {
-		int x = this.modelo.listaDataset(options).get(0).getCount();
-		int y = this.modelo.listaDataset(options).get(1).getCount();
+		this.vista.dataset.clear();
 		
-		this.vista.dataset.addValue( x , "dd" , "dd" );
-		this.vista.dataset.addValue( y , "cc" , "cc" );
+		int row1 = 0;
+		int row2 = 0;
 		
+		if(this.modelo.listaDataset(options).isEmpty() == false) {
+			row1 = this.modelo.listaDataset(options).get(0).getCount();
+			if(options[2] != 1 && options[2] != 2 && options[10] != 2) {
+				row2 = this.modelo.listaDataset(options).get(1).getCount();
+			}
+			if(options[2] == 3) {	
+				this.vista.dataset.addValue( row1 , "Defunciones" , "Población" );
+				this.vista.dataset.addValue( row2 , "Contagios" , "Población" );
+			}else {
+				this.vista.dataset.addValue( (row1 + row2) , "Total" , "Población" );
+			}
+		}
+
 		this.vista.panelG.repaint();
 		this.vista.panelG.updateUI();
 	}
@@ -101,19 +118,22 @@ public class Controlador implements ActionListener{
 	//Escucha las acciones de las opciones de sexo
 	public void sexRButtonListeners(ActionEvent e) {
 		if(e.getSource() == this.vista.sexR[0] || e.getSource() == this.vista.sexR[1] 
-				|| e.getSource() == this.vista.sexR[2]) {
+		|| e.getSource() == this.vista.sexR[2]) {
 			
 			if(e.getSource() == this.vista.sexR[0]){
 //				System.out.println("Hombre");
 				this.getVista().dataLabel[1] = this.getVista().sexR[0].getText();
+				this.Options[1] = 2;
 			}
 			if(e.getSource() == this.vista.sexR[1]){
 //				System.out.println("Mujer");
 				this.getVista().dataLabel[1] = this.getVista().sexR[1].getText();
+				this.Options[1] = 1;
 			}
 			if(e.getSource() == this.vista.sexR[2]){
 //				System.out.println("Total");
 				this.getVista().dataLabel[1] = this.getVista().sexR[2].getText();
+				this.Options[1] = 0;
 			}
 			this.vista.Data[1].setText("Sexo: "+ this.getVista().dataLabel[1]);
 			this.vista.Data[1].repaint();	
@@ -130,34 +150,65 @@ public class Controlador implements ActionListener{
 			if(e.getSource() == this.vista.sickR[0]){
 	//			System.out.println("Diabetes");
 				this.getVista().dataLabel[2] = this.getVista().sickR[0].getText();
+				for (int i = 3; i < 10; i++) {
+						this.Options[i] = 2;
+				}
+				this.Options[3] = 1;
 			}
 			if(e.getSource() == this.vista.sickR[1]){
 	//			System.out.println("EPOC");
 				this.getVista().dataLabel[2] = this.getVista().sickR[1].getText();
+				for (int i = 3; i < 10; i++) {
+					this.Options[i] = 2;
+				}
+				this.Options[4] = 1;
 			}
 			if(e.getSource() == this.vista.sickR[2]){
 	//			System.out.println("ASMA");
 				this.getVista().dataLabel[2] = this.getVista().sickR[2].getText();
+				for (int i = 3; i < 10; i++) {
+					this.Options[i] = 2;
+				}
+				this.Options[5] = 1;
 			}
 			if(e.getSource() == this.vista.sickR[3]){
 	//			System.out.println("Hipertensión");
 				this.getVista().dataLabel[2] = this.getVista().sickR[3].getText();
+				for (int i = 3; i < 10; i++) {
+					this.Options[i] = 2;
+				}
+				this.Options[6] = 1;
 			}
 			if(e.getSource() == this.vista.sickR[4]){
 	//			System.out.println("Cardio");
 				this.getVista().dataLabel[2] = this.getVista().sickR[4].getText();
+				for (int i = 3; i < 10; i++) {
+					this.Options[i] = 2;
+				}
+				this.Options[7] = 1;
 			}
 			if(e.getSource() == this.vista.sickR[5]){
 	//			System.out.println("Obesidad");
 				this.getVista().dataLabel[2] = this.getVista().sickR[5].getText();
+				for (int i = 3; i < 10; i++) {
+					this.Options[i] = 2;
+				}
+				this.Options[8] = 1;
 			}
 			if(e.getSource() == this.vista.sickR[6]){
 	//			System.out.println("Tabaquismo");
 				this.getVista().dataLabel[2] = this.getVista().sickR[6].getText();
+				for (int i = 3; i < 10; i++) {
+					this.Options[i] = 2;
+				}
+				this.Options[9] = 1;
 			}
 			if(e.getSource() == this.vista.sickR[7]){
 	//			System.out.println("Total");
 				this.getVista().dataLabel[2] = this.getVista().sickR[7].getText();
+				for (int i = 3; i < 10; i++) {
+					this.Options[i] = 0;
+				}
 			}
 			this.vista.Data[2].setText("Diagnóstico: "+ this.getVista().dataLabel[2]);
 			this.vista.Data[2].repaint();
@@ -167,19 +218,27 @@ public class Controlador implements ActionListener{
 	//Escucha las acciones de las opciones de estadística
 	public void deadRButtonListeners(ActionEvent e) {
 		if(e.getSource() == this.vista.deadR[0] || e.getSource() == this.vista.deadR[1] 
-				|| e.getSource() == this.vista.deadR[2]) {
+		|| e.getSource() == this.vista.deadR[2] || e.getSource() == this.vista.deadR[3]) {
 			
 			if(e.getSource() == this.vista.deadR[0]){
 	//			System.out.println("Vivo");
 				this.getVista().dataLabel[3] = this.getVista().deadR[0].getText();
+				this.Options[2] = 1;
 			}
 			if(e.getSource() == this.vista.deadR[1]){
 	//			System.out.println("Muerto");
 				this.getVista().dataLabel[3] = this.getVista().deadR[1].getText();
+				this.Options[2] = 2;
 			}
 			if(e.getSource() == this.vista.deadR[2]){
-	//			System.out.println("Total");
+	//			System.out.println("Vivo vs Muerto");
 				this.getVista().dataLabel[3] = this.getVista().deadR[2].getText();
+				this.Options[2] = 3;
+			}
+			if(e.getSource() == this.vista.deadR[3]){
+	//			System.out.println("Total");
+				this.getVista().dataLabel[3] = this.getVista().deadR[3].getText();
+				this.Options[2] = 0;
 			}
 			this.vista.Data[3].setText("Estadística: "+ this.getVista().dataLabel[3]);
 			this.vista.Data[3].repaint();
@@ -193,10 +252,12 @@ public class Controlador implements ActionListener{
 			if(e.getSource() == this.vista.ageR[0]){
 	//			System.out.println("si");
 				this.getVista().dataLabel[4] = this.getVista().ageR[0].getText();
+				this.Options[11] = 1;
 			}
 			if(e.getSource() == this.vista.ageR[1]){
 	//			System.out.println("no");
 				this.getVista().dataLabel[4] = this.getVista().ageR[1].getText();
+				this.Options[11] = 0;
 			}
 			this.vista.Data[4].setText("Filtro de edad: "+ this.getVista().dataLabel[4]);
 			this.vista.Data[4].repaint();

@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
@@ -42,9 +44,15 @@ public class PanelGrafica extends JPanel{
                 false //URL
                 );
         
+        //Valida que el intervalo mínimo en el eje Y sea un número entero
+        CategoryPlot chartPlot = barChart.getCategoryPlot();
+        ValueAxis YAxis = chartPlot.getRangeAxis();
+        YAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        
+        //crea un ancho maximo para las barras de la gráfica
         CategoryPlot categoryPlot = barChart.getCategoryPlot();
         BarRenderer br = (BarRenderer) categoryPlot.getRenderer();
-        br.setMaximumBarWidth(.30); // set maximum width to 30% of chart
+        br.setMaximumBarWidth(.3); // set maximum width to 30% of chart
         
         return barChart;
     }

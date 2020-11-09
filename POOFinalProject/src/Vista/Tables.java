@@ -21,9 +21,6 @@ public class Tables extends DefaultTableModel{
 		        return false;
 		      }  
 		};
-		//Para ordenar datos de la tabla
-		table.setAutoCreateRowSorter(true);
-		table.setRowHeight(50);
  
 		model = (DefaultTableModel)table.getModel();
 		cellRenderer = new DefaultTableCellRenderer();

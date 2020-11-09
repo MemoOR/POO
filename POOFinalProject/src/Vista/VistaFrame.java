@@ -34,7 +34,7 @@ public class VistaFrame extends JFrame{
 	public String[] sexLabel = {"Hombres", "Mujeres", "Total"};
 	public String[] sickLabel = {"Diabetes","EPOC", "Asma", "Hipertensión",
 								"Cardiovascular", "Obesidad", "Tabaquismo", "Total"};
-	public String[] deadLabel = {"Contagios", "Defunciones", "Total"};
+	public String[] deadLabel = {"Contagios", "Defunciones", "C vs D", "Total"};
 	public String[] ageLabel = {"Si", "No"};
 	public JRadioButton[] sexR, sickR, deadR, ageR;
 	public ButtonGroup SexG, sickG, deadG, ageG;
@@ -152,7 +152,7 @@ public class VistaFrame extends JFrame{
 	    //sleccion inicial de cada radiogroup
 	    sexR[2].setSelected(true);
 	    sickR[7].setSelected(true);
-	    deadR[2].setSelected(true);
+	    deadR[3].setSelected(true);
 	    ageR[1].setSelected(true);
 	    
 	    SexG = RadioGroup.createRadioGroup(sexR);
