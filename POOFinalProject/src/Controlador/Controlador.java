@@ -67,7 +67,6 @@ public class Controlador implements ActionListener{
 		
 	}
 
-	//Button Pressed
 	public void actionPerformed(ActionEvent e){
 		//obtiene seleccion de ComboBox de entidad
 		if(e.getSource() == this.vista.combo1){
@@ -95,7 +94,7 @@ public class Controlador implements ActionListener{
 			this.vista.Data[5].repaint();
 		}
 		
-		//obtiene seleccion de ComboBox de clasificacion
+		//valida si se presiona el boton de información de clasificación
 		if(e.getSource() == this.vista.infoButton) {
 			this.fillInfoTable();
 			JOptionPane.showMessageDialog(this.vista, this.vista.scrollPane);
