@@ -42,7 +42,7 @@ public class PanelGrafica extends JPanel{
 	private JFreeChart createChart(CategoryDataset dataset) {
 
         JFreeChart barChart = ChartFactory.createBarChart(
-                "Casos de COVID-19 en México hasta Octubre 2020", //titulo
+                "Casos de COVID-19 en México hasta 19/11/2020", //titulo
                 "", //label eje x 
                 "Número de casos", //label eje y
                 dataset,//data

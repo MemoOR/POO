@@ -7,7 +7,7 @@ col_list = ["ID_REGISTRO", "SEXO", "ENTIDAD_RES", "FECHA_DEF",
             "EDAD", "DIABETES", "EPOC", "ASMA", "HIPERTENSION", "CARDIOVASCULAR",
             "OBESIDAD", "TABAQUISMO", "CLASIFICACION_FINAL"]
 
-df = pd.read_csv('201029COVID19MEXICO.csv', usecols=col_list)
+df = pd.read_csv('201119COVID19MEXICO.csv', usecols=col_list)
 
 df = df.rename(columns={'ID_REGISTRO': 'ID_CASO', 'FECHA_DEF': 'DEFUNCION',
                         'CLASIFICACION_FINAL': 'CLASIFICACION'})
