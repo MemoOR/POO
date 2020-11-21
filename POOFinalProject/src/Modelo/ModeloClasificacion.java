@@ -35,8 +35,8 @@ public class ModeloClasificacion {
 		return clasificacion;
 	}
 	
-	public void setDescripcion(String clas) {
-		this.descripcion = clas;
+	public void setDescripcion(String des) {
+		this.descripcion = des;
 	}
 	
 	public String getDescripcion() {
